@@ -10,19 +10,14 @@
     <script src="react/build/react.js"></script>
     <script src="react/build/react-dom.js"></script>
     <script>
+      var Component = React.createClass({
+        render: function() {
+          return React.DOM.span(null, "カスタムコンポーネント")
+        }
+      });
+      var ComponentFactory = React.createFactory(Component);
       ReactDOM.render(
-        React.DOM.h1(
-          {
-            className: "pretty",
-            htmlFor: "me",
-            style: {
-              background: "black",
-              color: "white",
-              fontFamily: "Verdana",
-            }
-          },
-          "Hello world!"
-        ),
+        ComponentFactory(),
         document.getElementById("app")
       );
     </script>
