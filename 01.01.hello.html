@@ -10,31 +10,43 @@
     <script src="react/build/react.js"></script>
     <script src="react/build/react-dom.js"></script>
     <script>
-      var Component = React.createClass({
+      var TextAreaCounter = React.createClass({
         propTypes: {
-          firstName: React.PropTypes.string.isRequired,
-          middleName: React.PropTypes.string,
-          familyName: React.PropTypes.string.isRequired,
-          address: React.PropTypes.string,
+          text: React.PropTypes.string,
         },
 
         getDefaultProps: function() {
           return {
-            middleName: "",
-            address: "なし",
-          }
+            text: "",
+          };
+        },
+
+        getInitialState: function() {
+          return {
+            text: this.props.text,
+          };
+        },
+
+        _textChange: function(ev) {
+          this.setState({
+            text: ev.target.value,
+          });
         },
 
         render: function() {
-          return React.DOM.span(null, "私は" + this.props.firstName + this.props.middleName + this.props.familyName + "です。住所は" + this.props.address + "です");
+          return React.DOM.div(null,
+            React.DOM.textarea({
+              value: this.state.text,
+              onChange: this._textChange,
+            }),
+            React.DOM.h3(null, this.state.text.length)
+          );
         }
       });
+
       ReactDOM.render(
-        React.createElement(Component, {
-          firstName: "武敏",
-          middleName: "ゴメス",
-          familyName: "後藤",
-          address: "横浜",
+        React.createElement(TextAreaCounter, {
+          text: "ボブ",
         }),
         document.getElementById("app")
       );
