@@ -12,12 +12,13 @@
     <script>
       var Component = React.createClass({
         render: function() {
-          return React.DOM.span(null, "カスタムコンポーネント")
+          return React.DOM.span(null, "私は" + this.props.name + "です");
         }
       });
-      var ComponentFactory = React.createFactory(Component);
       ReactDOM.render(
-        ComponentFactory(),
+        React.createElement(Component, {
+          name: "ボブ",
+        }),
         document.getElementById("app")
       );
     </script>
