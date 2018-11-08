@@ -11,7 +11,7 @@
     <script src="../react/build/react-with-addons.js"></script>
     <script src="../react/build/react-dom.js"></script>
     <script>
-      var header = [
+      var headers = [
         "タイトル", "著者", "言語", "出版年", "売上部数"
       ];
 
@@ -31,6 +31,30 @@
         ["Alice's Adventures in Wonderland", "Lewis Carroll",
           "English", "1865", "100 million"],
       ];
+
+      var Excel = React.createClass({
+        render: function() {
+          return (
+            React.DOM.table(null,
+              React.DOM.thead(null,
+                React.DOM.tr(null,
+                  this.props.headers.map(function(title) {
+                    return React.DOM.th(null, title);
+                  })
+                )
+              )
+            )
+          );
+        }
+      });
+
+      ReactDOM.render(
+        React.createElement(Excel, {
+          headers: headers,
+          initialData: data,
+        }),
+        document.getElementById("app")
+      );
     </script>
   </body>
 </html>
