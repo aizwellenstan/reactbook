@@ -1,0 +1,3 @@
+[submodule "sample_code"]
+	path = sample_code
+	url = git@github.com:stoyan/reactbook.git
