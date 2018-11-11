@@ -221,6 +221,10 @@
           var state = this.state;
           const RAQUO = " \u00bb";
           var firatname = 'ジョン<scr'+'ipt src="http://evil/co.js"></src'+'ipt>';
+          var attr = {
+            href: "http://example.org",
+            target: "_blank",
+          };
           return (
             <div>
               <h1>
@@ -273,6 +277,8 @@
               <h2>
                 こんにちは、{firatname}!
               </h2>
+
+              <a {...attr}>Hello</a>
 
               <table>
                 <thead onClick={this._sort}>
