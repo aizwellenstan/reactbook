@@ -225,8 +225,15 @@
             href: "http://example.org",
             target: "_blank",
           };
+          var greeting = [
+            <span key="greet">Hello</span>,
+            " ",
+            <span key="world">World</span>,
+            "!"
+          ];
           return (
             <div>
+              {greeting}
               <h1>
                 {1} plus {2} is  {3}
               </h1>
