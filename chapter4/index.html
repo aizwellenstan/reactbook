@@ -220,34 +220,66 @@
         _renderTable: function() {
           var state = this.state;
           return (
-            <table>
-              <thead onClick={this._sort}>
-                <tr>{
-                  this.props.headers.map(function(title, idx) {
+            <div>
+              <h1>
+                {1} plus {2} is  {3}
+              </h1>
+
+              <h1>
+                {1}
+                plus
+                {2}
+                is
+                {3}
+              </h1>
+
+              <h1>
+                {/* 空白だけの文字列表現 */}
+                {1}
+                {" "}plus{" "}
+                {2}
+                {" "}is{" "}
+                {3}
+              </h1>
+
+              <h1>
+                {/* 空白が混在する文字列表現 */}
+                {1}
+                {" plus "}
+                {2}
+                {" is "}
+                {3}
+              </h1>
+
+              <table>
+                <thead onClick={this._sort}>
+                  <tr>{
+                    this.props.headers.map(function(title, idx) {
+                      return (
+                        <th key={idx}>{
+                          state.sortby === idx
+                            ? state.descending
+                              ? title + "\u2191"
+                              : title + "\u2193"
+                            : title
+                        }</th>
+                      )
+                    })
+                  }</tr>
+                </thead>
+                <tbody>
+                  {state.data.map(function(row, idx) {
                     return (
-                      <th key={idx}>{
-                        state.sortby === idx
-                          ? state.descending
-                            ? title + "\u2191"
-                            : title + "\u2193"
-                          : title
-                      }</th>
-                    )
-                  })
-                }</tr>
-              </thead>
-              <tbody>
-                {state.data.map(function(row, idx) {
-                  return (
-                    <tr key={idx}>{
-                      row.map(function(cell, idx) {
-                        return <td key={idx}>{cell}</td>;
-                      })
-                    }</tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                      <tr key={idx}>{
+                        row.map(function(cell, idx) {
+                          return <td key={idx}>{cell}</td>;
+                        })
+                      }</tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           );
         }
       });
