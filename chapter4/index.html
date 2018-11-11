@@ -219,6 +219,8 @@
 
         _renderTable: function() {
           var state = this.state;
+          const RAQUO = " \u00bb";
+          var firatname = 'ジョン<scr'+'ipt src="http://evil/co.js"></src'+'ipt>';
           return (
             <div>
               <h1>
@@ -263,6 +265,14 @@
                 }
                 Hello
               </h1>
+
+              <h2>
+                {"詳しくはこちら" + RAQUO}
+              </h2>
+
+              <h2>
+                こんにちは、{firatname}!
+              </h2>
 
               <table>
                 <thead onClick={this._sort}>
