@@ -5,6 +5,10 @@
     <meta charset="utf-8">
   </head>
   <body>
+    <div id="app1"></div>
+    <div id="app2"></div>
+    <div id="app3"></div>
+    <div id="app4"></div>
     <div id="app">
     </div>
     <script src="../react/build/react.js"></script>
@@ -252,8 +256,26 @@
           // キャメルケースの属性名
           // var a = <a onClick={reticulateSplines} />;
 
+          function log(event) {
+            console.log("value: ", event.target.value);
+            console.log("defaultValue: ", event.target.defaultValue);
+          }
+
           return (
             <div>
+              <select defaultValue="move">
+                <option value="stay">とどまるべきか</option>
+                <option value="move">去るべきか</option>
+              </select>
+
+              <select defaultValue={["stay", "move"]} multiple={true}>
+                <option value="stay">とどまるべきか</option>
+                <option value="move">去るべきか</option>
+                <option value="trouble">とどまれば災いあり</option>
+              </select>
+
+              <input defaultValue="hello" onChange={log} />
+
               {greeting}
               <h1>
                 {1} plus {2} is  {3}
@@ -347,6 +369,32 @@
           initialData: data,
         }),
         document.getElementById("app")
+      );
+
+      function log(event) {
+        console.log("value: ", event.target.value);
+        console.log("defaultValue: ", event.target.defaultValue);
+      }
+
+      ReactDOM.render(
+        <textarea defaultValue="hello\nworld" onChange={log} />,
+        document.getElementById('app1')
+      );
+      ReactDOM.render(
+        <textarea defaultValue={"hello\nworld"} onChange={log} />,
+        document.getElementById('app2')
+      );
+      ReactDOM.render(
+        <textarea onChange={log}>hello
+world
+        </textarea>,
+        document.getElementById('app3')
+      );
+      ReactDOM.render(
+        <textarea onChange={log}>{"hello\n\
+world"}
+        </textarea>,
+        document.getElementById('app4')
       );
     </script>
   </body>
