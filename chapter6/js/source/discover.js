@@ -1,6 +1,7 @@
 "use strict";
 
 import Button from "./components/Button";
+import Suggest from "./components/Suggest";
 import Logo from "./components/Logo";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -18,6 +19,9 @@ ReactDOM.render(
     <div>onClickが指定されたButton: <Button onClick={() => alert("クリックされました")}>クリック</Button></div>
     <div>hrefが指定されたButton: <Button href="http://reactjs.com">フォローする</Button></div>
     <div>クラス名が指定されたButton: <Button className="custom">何もしません</Button></div>
+
+    <h2>Suggest</h2>
+    <div><Suggest options={["eenie", "meenie", "miney", "mo"]} /></div>
 
     {/* その他のコンポーネントはここに追加されます */}
   </div>,

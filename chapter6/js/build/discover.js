@@ -4,6 +4,10 @@ var _Button = require("./components/Button");
 
 var _Button2 = _interopRequireDefault(_Button);
 
+var _Suggest = require("./components/Suggest");
+
+var _Suggest2 = _interopRequireDefault(_Suggest);
+
 var _Logo = require("./components/Logo");
 
 var _Logo2 = _interopRequireDefault(_Logo);
@@ -72,5 +76,15 @@ _reactDom2.default.render(_react2.default.createElement(
       { className: "custom" },
       "\u4F55\u3082\u3057\u307E\u305B\u3093"
     )
+  ),
+  _react2.default.createElement(
+    "h2",
+    null,
+    "Suggest"
+  ),
+  _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(_Suggest2.default, { options: ["eenie", "meenie", "miney", "mo"] })
   )
 ), document.getElementById("pad"));
