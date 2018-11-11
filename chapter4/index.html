@@ -5,16 +5,12 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <div id="app1"></div>
-    <div id="app2"></div>
-    <div id="app3"></div>
-    <div id="app4"></div>
     <div id="app">
     </div>
     <script src="../react/build/react.js"></script>
+    <script src="../react/build/react-with-addons.js"></script>
     <script src="../react/build/react-dom.js"></script>
-    <script src="../babel/browser.js"></script>
-    <script type="text/babel">
+    <script>
       var headers = [
         "タイトル", "著者", "言語", "出版年", "売上部数"
       ];
@@ -222,146 +218,48 @@
         },
 
         _renderTable: function() {
-          var state = this.state;
-          const RAQUO = " \u00bb";
-          var firatname = 'ジョン<scr'+'ipt src="http://evil/co.js"></src'+'ipt>';
-          var attr = {
-            href: "http://example.org",
-            target: "_blank",
-          };
-          var greeting = [
-            <span key="greet">Hello</span>,
-            " ",
-            <span key="world">World</span>,
-            "!"
-          ];
-
-          // classとforは指定できない
-          // var em = <em className="important" />;
-          // var label = <label htmlFor="thatInput" />;
-
-          // stleにはオブジェクトを指定する
-          // var styles = {
-          //   fontSize: "2em",
-          //   lineHeight: "1.6"
-          // };
-          // var em = <em style={styles}>
-
-          // 閉じタグは必須
-          // var gimmeabreak = <br />;
-          // var list = <ul><li>item</li></ul>;
-          // var meta = <meta charSet="utf-8" />;
-          // var meta = <meta charSet="utf-8"></meta>;
-
-          // キャメルケースの属性名
-          // var a = <a onClick={reticulateSplines} />;
-
-          function log(event) {
-            console.log("value: ", event.target.value);
-            console.log("defaultValue: ", event.target.defaultValue);
-          }
-
           return (
-            <div>
-              <select defaultValue="move">
-                <option value="stay">とどまるべきか</option>
-                <option value="move">去るべきか</option>
-              </select>
-
-              <select defaultValue={["stay", "move"]} multiple={true}>
-                <option value="stay">とどまるべきか</option>
-                <option value="move">去るべきか</option>
-                <option value="trouble">とどまれば災いあり</option>
-              </select>
-
-              <input defaultValue="hello" onChange={log} />
-
-              {greeting}
-              <h1>
-                {1} plus {2} is  {3}
-              </h1>
-
-              <h1>
-                {1}
-                plus
-                {2}
-                is
-                {3}
-              </h1>
-
-              <h1>
-                {/* 空白だけの文字列表現 */}
-                {1}
-                {" "}plus{" "}
-                {2}
-                {" "}is{" "}
-                {3}
-              </h1>
-
-              <h1>
-                {/* 空白が混在する文字列表現 */}
-                {1}
-                {" plus "}
-                {2}
-                {" is "}
-                {3}
-              </h1>
-
-              <h1>
-                {/* コメント */}
-                {/*
-                  複数
-                  行の
-                  コメント
-                */}
-                {
-                  // 単一行のコメント
-                }
-                Hello
-              </h1>
-
-              <h2>
-                {"詳しくはこちら" + RAQUO}
-              </h2>
-
-              <h2>
-                こんにちは、{firatname}!
-              </h2>
-
-              <a {...attr}>Hello</a>
-
-              <table>
-                <thead onClick={this._sort}>
-                  <tr>{
-                    this.props.headers.map(function(title, idx) {
-                      return (
-                        <th key={idx}>{
-                          state.sortby === idx
-                            ? state.descending
-                              ? title + "\u2191"
-                              : title + "\u2193"
-                            : title
-                        }</th>
-                      )
-                    })
-                  }</tr>
-                </thead>
-                <tbody>
-                  {state.data.map(function(row, idx) {
-                    return (
-                      <tr key={idx}>{
-                        row.map(function(cell, idx) {
-                          return <td key={idx}>{cell}</td>;
-                        })
-                      }</tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            React.DOM.table(null,
+              React.DOM.thead({onClick: this._sort},
+                React.DOM.tr(null,
+                  this.props.headers.map(function(title, idx) {
+                    if (this.state.sortby === idx) {
+                      title += this.state.descending ? "\u2191" : "\u2193"
+                    }
+                    return React.DOM.th({key: idx}, title);
+                  }, this)
+                )
+              ),
+              React.DOM.tbody({onDoubleClick: this._showEditor},
+                this._renderSeacrh(),
+                this.state.data.map(function(row, rowidx) {
+                  return (
+                    React.DOM.tr({key: rowidx},
+                      row.map(function(cell, idx) {
+                        var content = cell;
+                        var edit = this.state.edit;
+                        if (edit && edit.row === rowidx && edit.cell === idx) {
+                          content = React.DOM.form({onSubmit: this._save},
+                            React.DOM.input({
+                              type: "text",
+                              defaultValue: content,
+                            })
+                          );
+                        }
+                        return React.DOM.td({
+                          key: idx,
+                          "data-row": rowidx
+                        }, content);
+                      }, this)
+                    )
+                  );
+                }, this)
+              )
+            )
           );
         }
       });
+
 
       ReactDOM.render(
         React.createElement(Excel, {
@@ -369,32 +267,6 @@
           initialData: data,
         }),
         document.getElementById("app")
-      );
-
-      function log(event) {
-        console.log("value: ", event.target.value);
-        console.log("defaultValue: ", event.target.defaultValue);
-      }
-
-      ReactDOM.render(
-        <textarea defaultValue="hello\nworld" onChange={log} />,
-        document.getElementById('app1')
-      );
-      ReactDOM.render(
-        <textarea defaultValue={"hello\nworld"} onChange={log} />,
-        document.getElementById('app2')
-      );
-      ReactDOM.render(
-        <textarea onChange={log}>hello
-world
-        </textarea>,
-        document.getElementById('app3')
-      );
-      ReactDOM.render(
-        <textarea onChange={log}>{"hello\n\
-world"}
-        </textarea>,
-        document.getElementById('app4')
       );
     </script>
   </body>
