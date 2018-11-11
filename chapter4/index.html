@@ -231,6 +231,27 @@
             <span key="world">World</span>,
             "!"
           ];
+
+          // classとforは指定できない
+          // var em = <em className="important" />;
+          // var label = <label htmlFor="thatInput" />;
+
+          // stleにはオブジェクトを指定する
+          // var styles = {
+          //   fontSize: "2em",
+          //   lineHeight: "1.6"
+          // };
+          // var em = <em style={styles}>
+
+          // 閉じタグは必須
+          // var gimmeabreak = <br />;
+          // var list = <ul><li>item</li></ul>;
+          // var meta = <meta charSet="utf-8" />;
+          // var meta = <meta charSet="utf-8"></meta>;
+
+          // キャメルケースの属性名
+          // var a = <a onClick={reticulateSplines} />;
+
           return (
             <div>
               {greeting}
@@ -319,7 +340,6 @@
           );
         }
       });
-
 
       ReactDOM.render(
         React.createElement(Excel, {
