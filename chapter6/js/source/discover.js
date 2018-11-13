@@ -4,6 +4,7 @@ import Button from "./components/Button";
 import Suggest from "./components/Suggest";
 import Rating from "./components/Rating";
 import FormInput from "./components/FormInput";
+import Form from "./components/Form";
 import Logo from "./components/Logo";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -62,6 +63,13 @@ ReactDOM.render(
         <td><FormInput type="text" /></td>
       </tr>
     </tbody></table>
+
+    <Form
+      fields={[
+        {label: "評価", type: "rating", id: "reteme"},
+        {label: "あいさつ", id: "freetext"},
+      ]}
+      initialData={{reteme: 4, freetext: "こんにちは"}} />
 
     {/* その他のコンポーネントはここに追加されます */}
   </div>,
