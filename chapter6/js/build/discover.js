@@ -20,6 +20,10 @@ var _Form = require("./components/Form");
 
 var _Form2 = _interopRequireDefault(_Form);
 
+var _Actions = require("./components/Actions");
+
+var _Actions2 = _interopRequireDefault(_Actions);
+
 var _Logo = require("./components/Logo");
 
 var _Logo2 = _interopRequireDefault(_Logo);
@@ -230,5 +234,17 @@ _reactDom2.default.render(_react2.default.createElement(
   ),
   _react2.default.createElement(_Form2.default, {
     fields: [{ label: "評価", type: "rating", id: "reteme" }, { label: "あいさつ", id: "freetext" }],
-    initialData: { reteme: 4, freetext: "こんにちは" } })
+    initialData: { reteme: 4, freetext: "こんにちは" } }),
+  _react2.default.createElement(
+    "h2",
+    null,
+    "\u64CD\u4F5C"
+  ),
+  _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(_Actions2.default, { onAction: function onAction(type) {
+        return alert(type);
+      } })
+  )
 ), document.getElementById("pad"));

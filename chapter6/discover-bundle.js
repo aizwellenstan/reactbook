@@ -1,190 +1,64 @@
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-// shim for using process in browser
-var process = module.exports = {};
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
 
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var cachedSetTimeout;
-var cachedClearTimeout;
+var _react = require("react");
 
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
+var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require("prop-types");
 
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
+var Actions = function Actions(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: "Actions" },
+    _react2.default.createElement(
+      "span",
+      {
+        tabIndex: "0",
+        className: "ActionsInfo",
+        title: "\u8A73\u3057\u3044\u60C5\u5831",
+        onClick: props.onAction.bind(null, "info") },
+      "\u2139"
+    ),
+    _react2.default.createElement(
+      "span",
+      {
+        tabIndex: "0",
+        className: "ActionsEdit",
+        title: "\u7DE8\u96C6",
+        onClick: props.onAction.bind(null, "edit") },
+      "\u2710"
+    ),
+    _react2.default.createElement(
+      "span",
+      {
+        tabIndex: "0",
+        className: "ActionsDelete",
+        title: "\u524A\u9664",
+        onClick: props.onAction.bind(null, "delete") },
+      "X"
+    )
+  );
 };
 
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
+Actions.propTypes = {
+  onAction: _propTypes2.default.func
 };
 
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
+Actions.defaultProps = {
+  onAction: function onAction() {}
 };
-process.umask = function() { return 0; };
 
-},{}],2:[function(require,module,exports){
+exports.default = Actions;
+},{"prop-types":14,"react":21}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -687,6 +561,10 @@ var _Form = require("./components/Form");
 
 var _Form2 = _interopRequireDefault(_Form);
 
+var _Actions = require("./components/Actions");
+
+var _Actions2 = _interopRequireDefault(_Actions);
+
 var _Logo = require("./components/Logo");
 
 var _Logo2 = _interopRequireDefault(_Logo);
@@ -897,9 +775,21 @@ _reactDom2.default.render(_react2.default.createElement(
   ),
   _react2.default.createElement(_Form2.default, {
     fields: [{ label: "評価", type: "rating", id: "reteme" }, { label: "あいさつ", id: "freetext" }],
-    initialData: { reteme: 4, freetext: "こんにちは" } })
+    initialData: { reteme: 4, freetext: "こんにちは" } }),
+  _react2.default.createElement(
+    "h2",
+    null,
+    "\u64CD\u4F5C"
+  ),
+  _react2.default.createElement(
+    "div",
+    null,
+    _react2.default.createElement(_Actions2.default, { onAction: function onAction(type) {
+        return alert(type);
+      } })
+  )
 ), document.getElementById("pad"));
-},{"./components/Button":2,"./components/Form":3,"./components/FormInput":4,"./components/Logo":5,"./components/Rating":6,"./components/Suggest":7,"react":21,"react-dom":18}],9:[function(require,module,exports){
+},{"./components/Actions":1,"./components/Button":2,"./components/Form":3,"./components/FormInput":4,"./components/Logo":5,"./components/Rating":6,"./components/Suggest":7,"react":21,"react-dom":18}],9:[function(require,module,exports){
 /*!
   Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
@@ -1140,7 +1030,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
 module.exports = checkPropTypes;
 
 }).call(this,require('_process'))
-},{"./lib/ReactPropTypesSecret":15,"_process":1}],12:[function(require,module,exports){
+},{"./lib/ReactPropTypesSecret":15,"_process":28}],12:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -1760,7 +1650,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 };
 
 }).call(this,require('_process'))
-},{"./checkPropTypes":11,"./lib/ReactPropTypesSecret":15,"_process":1,"object-assign":10}],14:[function(require,module,exports){
+},{"./checkPropTypes":11,"./lib/ReactPropTypesSecret":15,"_process":28,"object-assign":10}],14:[function(require,module,exports){
 (function (process){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -1792,7 +1682,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./factoryWithThrowingShims":12,"./factoryWithTypeCheckers":13,"_process":1}],15:[function(require,module,exports){
+},{"./factoryWithThrowingShims":12,"./factoryWithTypeCheckers":13,"_process":28}],15:[function(require,module,exports){
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -21523,7 +21413,7 @@ module.exports = reactDom;
 }
 
 }).call(this,require('_process'))
-},{"_process":1,"object-assign":10,"prop-types/checkPropTypes":11,"react":21,"scheduler":26,"scheduler/tracing":27}],17:[function(require,module,exports){
+},{"_process":28,"object-assign":10,"prop-types/checkPropTypes":11,"react":21,"scheduler":26,"scheduler/tracing":27}],17:[function(require,module,exports){
 /** @license React v16.6.1
  * react-dom.production.min.js
  *
@@ -21816,7 +21706,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react-dom.development.js":16,"./cjs/react-dom.production.min.js":17,"_process":1}],19:[function(require,module,exports){
+},{"./cjs/react-dom.development.js":16,"./cjs/react-dom.production.min.js":17,"_process":28}],19:[function(require,module,exports){
 (function (process){
 /** @license React v16.6.1
  * react.development.js
@@ -23649,7 +23539,7 @@ module.exports = react;
 }
 
 }).call(this,require('_process'))
-},{"_process":1,"object-assign":10,"prop-types/checkPropTypes":11}],20:[function(require,module,exports){
+},{"_process":28,"object-assign":10,"prop-types/checkPropTypes":11}],20:[function(require,module,exports){
 /** @license React v16.6.1
  * react.production.min.js
  *
@@ -23686,7 +23576,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/react.development.js":19,"./cjs/react.production.min.js":20,"_process":1}],22:[function(require,module,exports){
+},{"./cjs/react.development.js":19,"./cjs/react.production.min.js":20,"_process":28}],22:[function(require,module,exports){
 (function (process){
 /** @license React v16.6.1
  * scheduler-tracing.development.js
@@ -24110,7 +24000,7 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 }
 
 }).call(this,require('_process'))
-},{"_process":1}],23:[function(require,module,exports){
+},{"_process":28}],23:[function(require,module,exports){
 /** @license React v16.6.1
  * scheduler-tracing.production.min.js
  *
@@ -24758,7 +24648,7 @@ exports.unstable_shouldYield = unstable_shouldYield;
 }
 
 }).call(this,require('_process'))
-},{"_process":1}],25:[function(require,module,exports){
+},{"_process":28}],25:[function(require,module,exports){
 /** @license React v16.6.1
  * scheduler.production.min.js
  *
@@ -24792,7 +24682,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler.development.js":24,"./cjs/scheduler.production.min.js":25,"_process":1}],27:[function(require,module,exports){
+},{"./cjs/scheduler.development.js":24,"./cjs/scheduler.production.min.js":25,"_process":28}],27:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -24803,4 +24693,190 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 }).call(this,require('_process'))
-},{"./cjs/scheduler-tracing.development.js":22,"./cjs/scheduler-tracing.production.min.js":23,"_process":1}]},{},[8]);
+},{"./cjs/scheduler-tracing.development.js":22,"./cjs/scheduler-tracing.production.min.js":23,"_process":28}],28:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}]},{},[8]);
