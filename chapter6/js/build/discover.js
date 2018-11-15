@@ -24,6 +24,10 @@ var _Actions = require("./components/Actions");
 
 var _Actions2 = _interopRequireDefault(_Actions);
 
+var _Dialog = require("./components/Dialog");
+
+var _Dialog2 = _interopRequireDefault(_Dialog);
+
 var _Logo = require("./components/Logo");
 
 var _Logo2 = _interopRequireDefault(_Logo);
@@ -246,5 +250,30 @@ _reactDom2.default.render(_react2.default.createElement(
     _react2.default.createElement(_Actions2.default, { onAction: function onAction(type) {
         return alert(type);
       } })
+  ),
+  _react2.default.createElement(
+    _Dialog2.default,
+    {
+      header: "\u5358\u7D14\u306A\u4F8B",
+      onAction: function onAction(type) {
+        return alert(type);
+      } },
+    "\u3053\u3093\u306B\u3061\u306F\uFF01"
+  ),
+  _react2.default.createElement(
+    _Dialog2.default,
+    {
+      header: "\u30AD\u30E3\u30F3\u30BB\u30EB\u30DC\u30BF\u30F3\u306A\u3057\u3001\u30AB\u30B9\u30BF\u30E0\u306E\u30DC\u30BF\u30F3",
+      hasCancel: false,
+      confirmLabel: "\u30E9\u30D9\u30EB",
+      onAction: function onAction(type) {
+        return alert(type);
+      } },
+    "\u4F55\u3067\u3082\u8868\u793A\u3067\u304D\u307E\u3059\u3002\u4F8B\u3048\u3070\u3001",
+    _react2.default.createElement(
+      _Button2.default,
+      null,
+      "\u30DC\u30BF\u30F3"
+    )
   )
 ), document.getElementById("pad"));
